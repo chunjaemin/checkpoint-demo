@@ -6,7 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from '@/shared/lib/hooks/useColorScheme';
 
 import { useFocusEffect } from '@react-navigation/native';
 import { BackHandler } from 'react-native';
@@ -15,7 +15,7 @@ import { useCallback } from 'react';
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require('../shared/assets/fonts/SpaceMono-Regular.ttf'),
   });
 
   useFocusEffect(

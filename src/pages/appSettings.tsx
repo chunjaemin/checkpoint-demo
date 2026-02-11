@@ -3,8 +3,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, Switch, ScrollView, Linking, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useColorScheme } from '@/hooks/useColorScheme'; // <-- useColorScheme 훅 임포트
-import { Colors } from '@/constants/Colors'; // <-- Colors 상수 임포트
+import { useColorScheme } from '@/shared/lib/hooks/useColorScheme'; // <-- useColorScheme 훅 임포트
+import { Colors } from '@/shared/config/Colors'; // <-- Colors 상수 임포트
 
 export default function Appsettings() {
   // 1. 현재 색상 스키마(light 또는 dark)를 가져옵니다.

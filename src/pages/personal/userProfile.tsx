@@ -11,7 +11,7 @@ export default function MyProfile() {
       {/* 프로필 */}
       <View style={styles.profileSection}>
         <Image
-          source={require('../../assets/images/favicon.png')}
+          source={require('../../shared/assets/images/favicon.png')}
           style={styles.profileImage}
         />
         <Text style={styles.nameText}>{user.name}</Text>
