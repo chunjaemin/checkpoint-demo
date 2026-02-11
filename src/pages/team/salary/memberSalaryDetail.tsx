@@ -1,5 +1,3 @@
-// 파일명: /detail/memberSalaryDetail.tsx
-
 import React, { useMemo, useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -9,7 +7,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import dayjs from 'dayjs';
 
 export default function MemberSalaryDetail() {
-    const { userId, year, month } = useLocalSearchParams();
+    const { userId, id, year, month } = useLocalSearchParams();
+    const resolvedUserId = (userId ?? id) as string | undefined;
     const router = useRouter();
     const insets = useSafeAreaInsets();
 
@@ -24,13 +23,13 @@ export default function MemberSalaryDetail() {
 
     const [currentMonth, setCurrentMonth] = useState(initialMonth);
 
-    const member = selectedSpace?.members.find(m => m.id === userId);
+    const member = selectedSpace?.members.find(m => m.id === resolvedUserId);
     const schedules = useMemo(() => {
         return selectedSpace?.schedules.filter(s =>
-            s.memberId === userId &&
+            s.memberId === resolvedUserId &&
             dayjs(s.startTime).isSame(currentMonth, 'month')
         ) || [];
-    }, [selectedSpace, userId, currentMonth]);
+    }, [selectedSpace, resolvedUserId, currentMonth]);
 
     const stats = useMemo(() => {
         let totalAmount = 0;

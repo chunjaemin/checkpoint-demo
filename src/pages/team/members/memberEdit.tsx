@@ -14,7 +14,8 @@ import ColorPickerModal from '../../components/common/ColorPickerModal';
 import { scheduleColors } from '../../scripts/color/scheduleColor'
 
 export default function TeamUserDetailEdit() {
-    const { memberId } = useLocalSearchParams();
+    const params = useLocalSearchParams();
+    const memberId = (params.memberId ?? params.id) as string | undefined;
     const { user, setUser } = useUserStore();
     const selectedSpaceId = useUserStore((state) => state.selected_space);
 

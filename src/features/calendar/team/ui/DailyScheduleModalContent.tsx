@@ -40,8 +40,8 @@ const DailyScheduleModalContent: React.FC<DailyScheduleModalContentProps> = ({
   const handleScheduleItemClick = (schedule: ScheduleItem) => {
     const scheduleParam = encodeURIComponent(JSON.stringify(schedule));
     router.push({
-      pathname: '/detail/personalScheduleDetail',
-      params: { schedule: scheduleParam },
+      pathname: '/team/schedule/[id]',
+      params: { id: schedule.id, schedule: scheduleParam },
     });
     onClose();
   };

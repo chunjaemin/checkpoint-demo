@@ -10,7 +10,8 @@ import { scheduleColors } from '@/scripts/color/scheduleColor';
 export default function PersonalSalary() {
   const user = useUserStore(state => state.user);
   const selectedSpaceIndex = useUserStore(state => state.selected_space);
-  const selectedSpace = user?.spaces[selectedSpaceIndex];
+  // 도메인 타입이 아직 정리되지 않아 화면에서는 느슨하게 처리합니다.
+  const selectedSpace = (user?.spaces?.[selectedSpaceIndex] as any) ?? null;
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
@@ -29,13 +30,12 @@ export default function PersonalSalary() {
   }
 
   const monthSchedules = useMemo(() => {
-    return selectedSpace.schedules.filter(schedule =>
-      dayjs(schedule.startTime).isSame(currentMonth, 'month')
-    );
+    const schedules = (selectedSpace?.schedules ?? []) as any[];
+    return schedules.filter((schedule) => dayjs(schedule.startTime).isSame(currentMonth, 'month'));
   }, [selectedSpace, currentMonth]);
 
   const workPlaceStats = useMemo(() => {
-    const stats = {};
+    const stats: Record<string, { name: string; color: any; totalAmount: number; totalHours: number }> = {};
     monthSchedules.forEach(sch => {
       const duration = dayjs(sch.endTime).diff(dayjs(sch.startTime), 'hour', true);
       if (!stats[sch.workPlaceId]) {
@@ -79,7 +79,7 @@ export default function PersonalSalary() {
       <Text style={styles.workTitle}>근무지별 급여 상세</Text>
 
       <View style={styles.workCard}>
-        {selectedSpace?.workPlaces?.map(wp => {
+        {(selectedSpace?.workPlaces ?? []).map((wp: any) => {
           const stats = workPlaceStats[wp.id] ?? { totalAmount: 0, totalHours: 0 };
           return (
             <TouchableOpacity
@@ -87,7 +87,8 @@ export default function PersonalSalary() {
               style={styles.salaryCard}
               onPress={() =>
                 router.push({
-                  pathname: '/detail/workplaceSalaryDetail',
+                  // 상세 라우트: /personal/salary/workplace/[id]
+                  pathname: '/personal/salary/workplace/[id]' as any,
                   params: {
                     id: wp.id,
                     year: currentMonth.year(),
@@ -96,7 +97,7 @@ export default function PersonalSalary() {
                 })
               }
             >
-              <View style={[styles.colorBar, { backgroundColor: scheduleColors[wp.color].main }]} />
+              <View style={[styles.colorBar, { backgroundColor: (scheduleColors as any)[wp.color]?.main || '#ccc' }]} />
               <View style={styles.cardTextContainer}>
                 <Text style={styles.workName}>{wp.name}</Text>
                 <Text style={styles.period}>{period}</Text>

@@ -105,9 +105,10 @@ export default function TeamSpaceSalary() {
             style={styles.salaryCard}
             onPress={() =>
               router.push({
-                pathname: '/detail/memberSalaryDetail',
+                // 상세 라우트: /team/salary/member/[id]
+                pathname: '/team/salary/member/[id]',
                 params: {
-                  userId: memberId,
+                  id: memberId,
                   year: currentMonth.year(),
                   month: currentMonth.month() + 1
                 }

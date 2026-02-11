@@ -41,7 +41,7 @@ export default function TeamScheduleDetail() {
           <Feather name="arrow-left" size={22} color="#222" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>사용자 정보</Text>
-        <TouchableOpacity onPress={() => router.push(`/detail/teamUserDetailEdit?memberId=${member.id}`)}>
+        <TouchableOpacity onPress={() => router.push(`/team/members/${member.id}/edit`)}>
           <Text style={styles.editBtn}>수정</Text>
         </TouchableOpacity>
       </View>

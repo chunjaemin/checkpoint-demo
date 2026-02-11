@@ -47,7 +47,6 @@ export default function RootLayout() {
             <Stack.Screen name="index" />
             <Stack.Screen name="personal" options={{ headerShown: false }} />
             <Stack.Screen name="team" options={{ headerShown: false }} />
-            <Stack.Screen name="detail" options={{ headerShown: false }} />
             <Stack.Screen name="handover" options={{ headerShown: false }} />
             <Stack.Screen name="memo" options={{ headerShown: false }} />
             <Stack.Screen

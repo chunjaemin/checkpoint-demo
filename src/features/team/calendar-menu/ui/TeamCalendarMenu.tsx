@@ -86,7 +86,7 @@ export function TeamCalendarMenu({ members, currentUserRole, hidden }: Props) {
           {currentUserRole === 'admin' && (
             <TouchableOpacity
               onPress={() => {
-                router.push(`/detail/teamInfo`);
+                router.push(`/team/members`);
                 setMenuModalVisible(false);
               }}
               style={styles.menuItem}
@@ -123,7 +123,7 @@ export function TeamCalendarMenu({ members, currentUserRole, hidden }: Props) {
                   <TouchableOpacity
                     onPress={() => {
                       setTeamInfoModalVisible(false);
-                      router.push(`/detail/teamUserDetail?memberId=${member.id}`);
+                      router.push(`/team/members/${member.id}`);
                     }}
                   >
                     <Feather name="user" size={22} color="#222" />
@@ -132,7 +132,7 @@ export function TeamCalendarMenu({ members, currentUserRole, hidden }: Props) {
                 <Feather name="repeat" size={22} color="#222" style={{ marginLeft: 18 }} />
                 <TouchableOpacity
                   onPress={() => {
-                    router.push(`/detail/teamUserScheduleList?memberId=${member.id}`);
+                    router.push(`/team/members/${member.id}/schedule`);
                   }}
                 >
                   <Feather name="calendar" size={22} color="#222" style={{ marginLeft: 18 }} />
