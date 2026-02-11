@@ -10,7 +10,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TeamUserScheduleList() {
-  const { memberId } = useLocalSearchParams();
+  const params = useLocalSearchParams();
+  const memberId = (params.memberId ?? params.id) as string | undefined;
   const { user } = useUserStore();
 
   const insets = useSafeAreaInsets();

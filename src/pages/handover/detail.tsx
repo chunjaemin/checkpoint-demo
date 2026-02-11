@@ -7,7 +7,9 @@ import { useHandOverStore } from '@/scripts/store/handoverStore';
 
 export default function NoteDetail() {
   const router = useRouter();
-  const { noteId, tabId } = useLocalSearchParams();
+  const params = useLocalSearchParams();
+  const noteId = (params.noteId ?? params.id) as string | undefined;
+  const tabId = params.tabId as string | undefined;
   const findNoteById = useHandOverStore(state => state.findNoteById);
   const note = findNoteById(tabId, noteId);
   const insets = useSafeAreaInsets();

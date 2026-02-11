@@ -51,20 +51,32 @@ const PersonalScheduleDetail: React.FC = () => {
         : teamSpaceFromSchedule?.members || [];
 
     useEffect(() => {
+        // 1) 기존 방식: schedule JSON을 query로 전달받는 경우
         if (searchParams.schedule) {
             try {
                 const parsedSchedule: ScheduleItem = JSON.parse(decodeURIComponent(searchParams.schedule as string));
                 setSchedule(parsedSchedule);
                 setEditedMemo(parsedSchedule.memo || '');
                 setIsEditingMemo(false);
+                return;
             } catch (error) {
                 console.error('Failed to parse schedule param:', error);
-                setSchedule(null);
             }
-        } else {
-            setSchedule(null);
         }
-    }, [searchParams.schedule]);
+
+        // 2) 라우트 파라미터(id)로 전달받는 경우: 현재 선택된 space에서 schedule을 찾아봄
+        const scheduleId = (searchParams.id as string | undefined) ?? undefined;
+        const currentSpace = user?.spaces?.[selected_space];
+        const found = scheduleId ? currentSpace?.schedules?.find((s: any) => s.id === scheduleId) : null;
+        if (found) {
+            setSchedule(found as ScheduleItem);
+            setEditedMemo((found as any).memo || '');
+            setIsEditingMemo(false);
+            return;
+        }
+
+        setSchedule(null);
+    }, [searchParams.schedule, searchParams.id, user, selected_space]);
 
     const isValidDate = (d: Date | null | undefined) => d instanceof Date && !isNaN(d.getTime());
     const isMyTeamSchedule = space_type === 'team' && schedule?.memberId === user.id;

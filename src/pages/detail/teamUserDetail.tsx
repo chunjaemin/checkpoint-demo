@@ -6,18 +6,21 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { scheduleColors } from '@/scripts/color/scheduleColor';
 
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 // navigation param: memberId
 export default function TeamScheduleDetail() {
   const route = useRoute();
   const navigation = useNavigation();
   const router = useRouter();
+  const params = useLocalSearchParams();
 
   const insets = useSafeAreaInsets();
 
   // memberId는 route.params로 전달됨
-  const { memberId } = route.params || {};
+  const memberId =
+    (route.params as any)?.memberId ??
+    (params.memberId ?? params.id);
   const user = useUserStore((state) => state.user);
   const selectedSpaceId = useUserStore((state) => state.selected_space)
   // 팀 멤버 찾기
